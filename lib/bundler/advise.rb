@@ -1,7 +1,3 @@
-require "bundler/advise/version"
+require_relative 'advise/version'
+require_relative 'advise/advisories'
 
-module Bundler
-  module Advise
-    # Your code goes here...
-  end
-end
