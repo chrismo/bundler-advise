@@ -10,8 +10,18 @@ module Bundler::Advise
       @repo = repo
     end
 
-    def ensure_latest
-      pull
+    def update
+      File.exist?(@dir) ? pull : clone
+    rescue ArgumentError => e
+      # git gem is dorky in this case, putting the path into the backtrace.
+      msg = "Unexpected problem with working dir for advisories: #{e.message} #{e.backtrace}.\n" +
+        "Call clean_update! to remove #{@dir} and re-clone it."
+      raise RuntimeError, msg
+    end
+
+    def clean_update!
+      FileUtils.rmtree @dir
+      update
     end
 
     private
