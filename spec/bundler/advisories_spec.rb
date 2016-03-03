@@ -39,7 +39,7 @@ describe Advisories do
 
     it 'should error handle messed up dir' do
       FileUtils.makedirs @a.dir
-      lambda { @a.update }.should raise_error(/problem with working dir/)
+      lambda { @a.update }.should raise_error(/problem with working dir.*#{Regexp.escape(@a.dir)}/)
     end
 
     it 'should clean update a messed up dir' do
