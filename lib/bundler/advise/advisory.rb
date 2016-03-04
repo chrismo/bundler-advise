@@ -14,17 +14,13 @@ module Bundler::Advise
 
     def initialize(fields)
       fields.each do |k, v|
-        send("#{k}=".to_sym, v)
+        instance_variable_set("@#{k}", v)
       end
     end
 
     def to_yaml
       self.class.fields.reduce({}) { |h, f| h[f.to_s] = instance_variable_get("@#{f}"); h }.to_yaml
     end
-
-    private
-
-    attr_writer(*self.fields)
 
     def unaffected_versions
        Array(@unaffected_versions).map { |v| Gem::Requirement.create(v) }

@@ -1,5 +1,17 @@
 class BundlerFixture
-  def self.create_lockfile(dir:, gem_specs:)
+  attr_reader :dir
+
+  def initialize
+    @dir = File.join(Dir.tmpdir, 'fake_project_root')
+    FileUtils.makedirs @dir
+  end
+
+  def clean_up
+    FileUtils.rmtree @dir
+  end
+
+  def create_lockfile(gem_specs:)
+    dir = @dir
     index = Bundler::Index.new
     deps = []
     gem_specs.each do |g|
@@ -19,7 +31,7 @@ class BundlerFixture
     defn.lock(gemfile_fn)
   end
 
-  def self.create_spec(name, version, dependencies={})
+  def create_spec(name, version, dependencies={})
     Gem::Specification.new do |s|
       s.name = name
       s.version = Gem::Version.new(version)

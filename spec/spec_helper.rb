@@ -7,6 +7,7 @@ RSpec.configure do |c|
   c.expect_with(:rspec) { |co| co.syntax = :should }
 end
 
+require_relative 'fixture/advisories_fixture'
 require_relative 'fixture/bundler_fixture'
 
 def fixture_dir
