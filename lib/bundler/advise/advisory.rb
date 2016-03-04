@@ -3,14 +3,15 @@ require 'yaml'
 module Bundler::Advise
   class Advisory
     def self.from_yml(yml_filename)
-      new(YAML.load(File.read(yml_filename)))
+      id = File.basename(yml_filename, '.yml')
+      new(YAML.load(File.read(yml_filename)).tap { |h| h[:id] = id })
     end
 
     def self.fields
       [:gem, :url, :title, :date, :description, :unaffected_versions, :patched_versions]
     end
 
-    attr_reader *self.fields
+    attr_reader *self.fields, :id
 
     def initialize(fields={})
       fields.each do |k, v|

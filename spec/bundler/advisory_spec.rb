@@ -4,6 +4,7 @@ describe Advisory do
   context 'persistence' do
     it 'should parse the yummy yml' do
       ad = Advisory.from_yml(File.join(fixture_dir, 'gems', 'bar', 'bar-1_0_1.yml'))
+      ad.id.should == 'bar-1_0_1'
       ad.gem.should == 'bar'
       ad.url.should == 'http://bar-gem-is-awesome.com'
       ad.title.should == 'bar 1.0.1 might explode your spleen'
