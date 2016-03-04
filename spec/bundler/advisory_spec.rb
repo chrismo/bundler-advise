@@ -11,4 +11,11 @@ describe Advisory do
     ad.unaffected_versions.should == [Gem::Requirement.create('1.0.0')]
     ad.patched_versions.should == [Gem::Requirement.create('>= 1.0.2')]
   end
+
+  it 'should output back to yaml as hash' do
+    yml_fn = File.join(fixture_dir, 'gems', 'bar', 'bar-1_0_1.yml')
+    actual_yml = File.read(yml_fn)
+    ad = Advisory.from_yml(yml_fn)
+    ad.to_yaml.should == actual_yml
+  end
 end

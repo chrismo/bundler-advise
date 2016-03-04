@@ -11,6 +11,9 @@ module Bundler::Advise
       Dir.chdir(@dir) do
         lockfile = Bundler::LockfileParser.new(Bundler.read_file('Gemfile.lock'))
       end
+      lockfile.specs.map do |spec|
+        @advisories
+      end
     end
   end
 end

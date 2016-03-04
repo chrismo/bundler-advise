@@ -20,8 +20,9 @@ describe GemAdviser do
   end
 
   it 'should load vulnerability' do
-    GemAdviser.new(dir: @dir, advisories: [
-
+    ga = GemAdviser.new(dir: @dir, advisories: [
+      Advisory.new(gem: 'quux', patched_versions: '>= 1.4.5')
     ])
+    ga.scan_lockfile.map(&:name).should == ['quux']
   end
 end

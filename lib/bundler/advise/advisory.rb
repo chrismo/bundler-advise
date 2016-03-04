@@ -3,12 +3,7 @@ require 'yaml'
 module Bundler::Advise
   class Advisory
     def self.from_yml(yml_filename)
-      h = YAML.load(File.read(yml_filename))
-      a = new
-      h.each do |k, v|
-        a.send("#{k}=".to_sym, v)
-      end
-      a
+      new(YAML.load(File.read(yml_filename)))
     end
 
     def self.fields
@@ -17,16 +12,26 @@ module Bundler::Advise
 
     attr_reader *self.fields
 
+    def initialize(fields)
+      fields.each do |k, v|
+        send("#{k}=".to_sym, v)
+      end
+    end
+
+    def to_yaml
+      self.class.fields.reduce({}) { |h, f| h[f.to_s] = instance_variable_get("@#{f}"); h }.to_yaml
+    end
+
     private
 
     attr_writer(*self.fields)
 
-    def unaffected_versions=(value)
-      @unaffected_versions = value.map { |v| Gem::Requirement.create(v) }
+    def unaffected_versions
+       Array(@unaffected_versions).map { |v| Gem::Requirement.create(v) }
     end
 
-    def patched_versions=(value)
-      @patched_versions = value.map { |v| Gem::Requirement.create(v) }
+    def patched_versions
+      Array(@patched_versions).map { |v| Gem::Requirement.create(v) }
     end
   end
 end
