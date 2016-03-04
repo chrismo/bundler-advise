@@ -10,7 +10,6 @@ describe GemAdviser do
     ])
 
     @af = AdvisoriesFixture.new
-    @af.save_advisory(Advisory.new(gem: 'quux', patched_versions: '>= 1.4.5'))
   end
 
   def dump
@@ -22,8 +21,44 @@ describe GemAdviser do
     FileUtils.rmtree @bf.clean_up
   end
 
-  it 'should load vulnerability' do
+  it 'should find one matching advisories' do
+    @af.save_advisory(Advisory.new(gem: 'quux', patched_versions: '>= 1.4.5'))
     ga = GemAdviser.new(dir: @bf.dir, advisories: Advisories.new(dir: @af.dir))
     ga.scan_lockfile.map(&:gem).should == ['quux']
+  end
+
+  it 'should not find one non-matching advisories' do
+    @af.save_advisory(Advisory.new(gem: 'quux', patched_versions: '>= 1.4.2'))
+    ga = GemAdviser.new(dir: @bf.dir, advisories: Advisories.new(dir: @af.dir))
+    ga.scan_lockfile.map(&:gem).should be_empty
+  end
+
+  it 'should find one matching from many advisories' do
+    @af.save_advisory(Advisory.new(gem: 'quux', patched_versions: '>= 1.4.5'))
+    @af.save_advisory(Advisory.new(gem: 'quux', patched_versions: '>= 1.4.2'))
+    ga = GemAdviser.new(dir: @bf.dir, advisories: Advisories.new(dir: @af.dir))
+    ga.scan_lockfile.map(&:gem).should == ['quux']
+  end
+
+  it 'should find many matching from many advisories' do
+    @af.save_advisory(Advisory.new(gem: 'quux', date: '2014-01-12', patched_versions: '>= 1.4.5'))
+    @af.save_advisory(Advisory.new(gem: 'quux', date: '2014-01-13', patched_versions: '>= 1.4.4'))
+    ga = GemAdviser.new(dir: @bf.dir, advisories: Advisories.new(dir: @af.dir))
+    ga.scan_lockfile.map(&:date).should == ['2014-01-12', '2014-01-13']
+  end
+
+  it 'should find many gems matching from many advisories' do
+    @af.save_advisory(Advisory.new(gem: 'quux', patched_versions: '>= 1.4.5'))
+    @af.save_advisory(Advisory.new(gem: 'bar', patched_versions: '>= 6.0'))
+    ga = GemAdviser.new(dir: @bf.dir, advisories: Advisories.new(dir: @af.dir))
+    ga.scan_lockfile.map(&:gem).should == ['bar', 'quux']
+  end
+
+  it 'should skip matching but unaffected' do
+    @af.save_advisory(Advisory.new(gem: 'quux',
+                                   unaffected_versions: '~> 1.4.0',
+                                   patched_versions: '>= 1.6.0'))
+    ga = GemAdviser.new(dir: @bf.dir, advisories: Advisories.new(dir: @af.dir))
+    ga.scan_lockfile.map(&:gem).should be_empty
   end
 end

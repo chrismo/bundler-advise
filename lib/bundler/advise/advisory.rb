@@ -12,7 +12,7 @@ module Bundler::Advise
 
     attr_reader *self.fields
 
-    def initialize(fields)
+    def initialize(fields={})
       fields.each do |k, v|
         instance_variable_set("@#{k}", v)
       end
@@ -23,11 +23,27 @@ module Bundler::Advise
     end
 
     def unaffected_versions
-       Array(@unaffected_versions).map { |v| Gem::Requirement.create(v) }
+      Array(@unaffected_versions).map { |v| Gem::Requirement.create(v) }
     end
 
     def patched_versions
       Array(@patched_versions).map { |v| Gem::Requirement.create(v) }
+    end
+
+    def is_affected?(gem_version)
+      is_not_patched?(gem_version) && is_not_unaffected?(gem_version)
+    end
+
+    def is_not_patched?(gem_version)
+      patched_versions.detect do |pv|
+        pv.satisfied_by?(Gem::Version.create(gem_version))
+      end.nil?
+    end
+
+    def is_not_unaffected?(gem_version)
+      unaffected_versions.detect do |pv|
+        pv.satisfied_by?(Gem::Version.create(gem_version))
+      end.nil?
     end
   end
 end

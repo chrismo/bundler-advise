@@ -12,7 +12,9 @@ module Bundler::Advise
         lockfile = Bundler::LockfileParser.new(Bundler.read_file('Gemfile.lock'))
       end
       lockfile.specs.map do |spec|
-        @advisories.gem_advisories_for(spec.name)
+        @advisories.gem_advisories_for(spec.name).select do |ad|
+          ad.is_affected?(spec.version)
+        end
       end.flatten
     end
   end
