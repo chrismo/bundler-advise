@@ -20,11 +20,28 @@ Or install it yourself as:
 
 ## Goal
 
-The intent of this gem is to provide a re-usable library alternate to bundler-audit with a permissive license.
+The intent of this gem is to provide a library alternate to `bundler-audit` with an MIT license. The intent of
+`bundler-audit` is to be a [standalone utility](https://github.com/rubysec/bundler-audit/issues/9),
+`bundler-advise` can be integrated into other codebases without concerns over GPLv3 licensing.
+
+Both tools fetch and parse the contents of the [ruby-advisory-db](rubysec/ruby-advisory-db.git). `bundle-advise`
+has no CLI, does not scan for insecure sources, but does support custom advisory databases that match the interface
+of the data in ruby-advisory-db, for organizations that want to maintain an internal database for private gems.
 
 ## Usage
 
-TODO: Write usage instructions here
+    require 'bundler/advise'
+
+    # Presuming the default ruby-advisory-db on github.com and Dir.pwd is set to
+    # project root, containing the project's Gemfile.lock
+    advisories = Bundler::Advise::GemAdviser.new.scan_lockfile
+
+    # To change the directory:
+    advisories = Bundler::Advise::GemAdviser.new(dir: other_project_dir).scan_lockfile
+
+    # To use a custom advisory db:
+    db = Bundler::Advise::Advisories.new(dir: my_custom_db_path, repo: custom_git_url)
+    advisories = Bundler::Advise::GemAdviser.new(advisories: db).scan_lockfile
 
 ## Development
 

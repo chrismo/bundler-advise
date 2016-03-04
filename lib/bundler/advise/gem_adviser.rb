@@ -1,6 +1,8 @@
+require 'bundler/lockfile_parser'
+
 module Bundler::Advise
   class GemAdviser
-    def initialize(advisories: [], dir: Dir.pwd)
+    def initialize(advisories: Advisories.new, dir: Dir.pwd)
       @advisories = advisories
       @dir = dir
       scan_lockfile
