@@ -3,8 +3,12 @@ require 'bundler/advise'
 
 include Bundler::Advise
 
-require_relative 'bundler/bundler_fixture'
-
 RSpec.configure do |c|
   c.expect_with(:rspec) { |co| co.syntax = :should }
+end
+
+require_relative 'fixture/bundler_fixture'
+
+def fixture_dir
+  File.expand_path('../fixture', __FILE__)
 end

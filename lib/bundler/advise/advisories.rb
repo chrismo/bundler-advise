@@ -24,6 +24,12 @@ module Bundler::Advise
       update
     end
 
+    def gem_advisories_for(gem_name)
+      Dir[File.join(@dir, 'gems', gem_name, '*.yml')].map do |ad_yml|
+        Advisory.from_yml(ad_yml)
+      end
+    end
+
     private
 
     def clone

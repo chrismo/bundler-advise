@@ -11,7 +11,7 @@ describe Advisories do
     end
   end
 
-  context 'test setup' do
+  context 'git clone/updates' do
     before do
       @a = Advisories.new(
         dir: File.join(Dir.tmpdir, '.ruby-advisory-db'),
@@ -47,5 +47,14 @@ describe Advisories do
       @a.clean_update!
       File.exist?(File.join(@a.dir, '.git')).should be true
     end
+  end
+
+  it 'should retrieve advisories for a gem' do
+    @a = Advisories.new(dir: fixture_dir)
+    ads = @a.gem_advisories_for('bar')
+    ads.length.should == 1
+    ad = ads.first
+    ad.gem.should == 'bar'
+    ad.patched_versions.should == [Gem::Requirement.create('>= 1.0.2')]
   end
 end

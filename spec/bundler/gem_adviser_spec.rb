@@ -19,8 +19,9 @@ describe GemAdviser do
     FileUtils.rmtree @dir
   end
 
-  it 'should load ' do
-    dump
-    GemAdviser.new(dir: @dir)
+  it 'should load vulnerability' do
+    GemAdviser.new(dir: @dir, advisories: [
+
+    ])
   end
 end
