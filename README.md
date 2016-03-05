@@ -30,6 +30,7 @@ of the data in ruby-advisory-db, for organizations that want to maintain an inte
 
 ## Usage
 
+```ruby
     require 'bundler/advise'
 
     # Presuming the default ruby-advisory-db on github.com and Dir.pwd is set to
@@ -42,6 +43,7 @@ of the data in ruby-advisory-db, for organizations that want to maintain an inte
     # To use a custom advisory db:
     db = Bundler::Advise::Advisories.new(dir: my_custom_db_path, repo: custom_git_url)
     advisories = Bundler::Advise::GemAdviser.new(advisories: db).scan_lockfile
+```
 
 ## Development
 
