@@ -4,7 +4,9 @@ date: 2015-11-18
 description: This version could, like, explode your spleen if taken internally
 patched_versions:
 - ">= 1.0.2"
+- "~> 1.1, > 1.1.1"
 title: bar 1.0.1 might explode your spleen
 unaffected_versions:
 - 1.0.0
+- ">= 2.3.5, <= 2.3.14"
 url: http://bar-gem-is-awesome.com

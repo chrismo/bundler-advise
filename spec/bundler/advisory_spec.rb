@@ -10,8 +10,10 @@ describe Advisory do
       ad.title.should == 'bar 1.0.1 might explode your spleen'
       ad.date.should == DateTime.parse('2015-11-18')
       ad.description.should == 'This version could, like, explode your spleen if taken internally'
-      ad.unaffected_versions.should == [Gem::Requirement.create('1.0.0')]
-      ad.patched_versions.should == [Gem::Requirement.create('>= 1.0.2')]
+      ad.unaffected_versions.should == [Gem::Requirement.create('1.0.0'),
+                                        Gem::Requirement.create([">= 2.3.5","<= 2.3.14"])]
+      ad.patched_versions.should == [Gem::Requirement.create('>= 1.0.2'),
+                                     Gem::Requirement.create(['~> 1.1', '> 1.1.1'])]
     end
 
     it 'should output back to yaml as hash' do

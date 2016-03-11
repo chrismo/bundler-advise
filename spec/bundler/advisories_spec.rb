@@ -55,6 +55,6 @@ describe Advisories do
     ads.length.should == 1
     ad = ads.first
     ad.gem.should == 'bar'
-    ad.patched_versions.should == [Gem::Requirement.create('>= 1.0.2')]
+    ad.patched_versions.should == [Gem::Requirement.create('>= 1.0.2'), Gem::Requirement.create(["~> 1.1", "> 1.1.1"])]
   end
 end

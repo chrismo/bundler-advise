@@ -25,11 +25,11 @@ module Bundler::Advise
     end
 
     def unaffected_versions
-      Array(@unaffected_versions).map { |v| Gem::Requirement.create(v) }
+      Array(@unaffected_versions).map { |v| Gem::Requirement.create(v.split(",")) }
     end
 
     def patched_versions
-      Array(@patched_versions).map { |v| Gem::Requirement.create(v) }
+      Array(@patched_versions).map { |v| Gem::Requirement.create(v.split(",")) }
     end
 
     def is_affected?(gem_version)
