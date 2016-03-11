@@ -1,0 +1,10 @@
+---
+gem: bar
+date: 2015-11-18
+description: This version could, like, explode your spleen if taken internally
+patched_versions:
+- ">= 1.0.2"
+title: bar 1.0.1 might explode your spleen
+unaffected_versions:
+- 1.0.0
+url: http://bar-gem-is-awesome.com
