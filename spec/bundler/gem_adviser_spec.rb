@@ -17,8 +17,8 @@ describe GemAdviser do
   end
 
   after do
-    FileUtils.rmtree @af.clean_up
-    FileUtils.rmtree @bf.clean_up
+    @af.clean_up
+    @bf.clean_up
   end
 
   it 'should find one matching advisories' do

@@ -8,7 +8,7 @@ RSpec.configure do |c|
 end
 
 require_relative 'fixture/advisories_fixture'
-require_relative 'fixture/bundler_fixture'
+require 'bundler/fixture'
 
 def fixture_dir
   File.expand_path('../fixture', __FILE__)
