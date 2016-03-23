@@ -60,4 +60,16 @@ describe Advisory do
     ad.is_affected?('1.4.2').should be true
     ad.is_affected?('1.4.3').should be false
   end
+
+  it 'should work with compound requirements as formatted in advisory db' do
+    ad = Advisory.new(patched_versions: '~> 4.2.5, >= 4.2.5.2')
+    ad.is_affected?('4.2.5').should be true
+    ad.is_affected?('4.2.5.1').should be true
+    ad.is_affected?('4.2.5.2').should be false
+
+    ad = Advisory.new(unaffected_versions: '~> 4.2.5, >= 4.2.5.2')
+    ad.is_affected?('4.2.5').should be true
+    ad.is_affected?('4.2.5.1').should be true
+    ad.is_affected?('4.2.5.2').should be false
+  end
 end
