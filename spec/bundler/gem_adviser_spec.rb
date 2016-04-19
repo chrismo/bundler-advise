@@ -61,4 +61,12 @@ describe GemAdviser do
     ga = GemAdviser.new(dir: @bf.dir, advisories: Advisories.new(dir: @af.dir))
     ga.scan_lockfile.map(&:gem).should be_empty
   end
+
+  it 'should include gem spec from lockfile' do
+    @af.save_advisory(Advisory.new(gem: 'quux', patched_versions: '>= 1.4.5'))
+    ga = GemAdviser.new(dir: @bf.dir, advisories: Advisories.new(dir: @af.dir))
+    advisory = ga.scan_lockfile.first
+    advisory.gem_spec.name.should == 'quux'
+    advisory.gem_spec.version.to_s.should == '1.4.3'
+  end
 end

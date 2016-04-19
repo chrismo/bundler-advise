@@ -14,6 +14,11 @@ module Bundler::Advise
 
     attr_reader *self.fields, :id
 
+    # Not always guaranteed to be set, but will be set by GemAdviser when scanning a lockfile.
+    attr_reader :gem_spec
+    attr_writer :gem_spec
+    private :gem_spec=
+
     def initialize(fields={})
       fields.each do |k, v|
         instance_variable_set("@#{k}", v)

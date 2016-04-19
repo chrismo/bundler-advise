@@ -15,7 +15,7 @@ module Bundler::Advise
       end
       lockfile.specs.map do |spec|
         @advisories.gem_advisories_for(spec.name).select do |ad|
-          ad.is_affected?(spec.version)
+          ad.is_affected?(spec.version).tap { |res| ad.send(:gem_spec=, spec) if res }
         end
       end.flatten
     end
