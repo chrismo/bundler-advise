@@ -12,6 +12,7 @@ module Bundler::Advise
       lockfile = nil
       Dir.chdir(@dir) do
         puts '*' * 80
+        File.open(File.join(@dir, 'foo.txt'), 'w') { |f| f.print 'la' * 80 }
         puts Dir[File.join(@dir, '**', '*')].inspect
         puts '*' * 80
         lockfile = Bundler::LockfileParser.new(Bundler.read_file(File.join(@dir, 'Gemfile.lock')))
