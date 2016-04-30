@@ -11,7 +11,6 @@ module Bundler::Advise
     def scan_lockfile
       lockfile = nil
       Dir.chdir(@dir) do
-        STDERR.puts Dir[File.join(@dir, '**', '*')]
         lockfile = Bundler::LockfileParser.new(Bundler.read_file('Gemfile.lock'))
       end
       lockfile.specs.map do |spec|
