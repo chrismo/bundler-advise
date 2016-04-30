@@ -5,7 +5,7 @@ module Bundler::Advise
     attr_reader :dir, :repo
 
     def initialize(dir: File.expand_path('~/.ruby-advisory-db'),
-                   repo: 'git@github.com:rubysec/ruby-advisory-db.git')
+                   repo: 'https://github.com/rubysec/ruby-advisory-db.git')
       @dir = dir
       @repo = repo
     end

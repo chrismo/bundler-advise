@@ -7,7 +7,7 @@ describe Advisories do
     end
 
     it 'should default to rubysec ruby-advisory-db' do
-      Advisories.new.repo.should == 'git@github.com:rubysec/ruby-advisory-db.git'
+      Advisories.new.repo.should == 'https://github.com/rubysec/ruby-advisory-db.git'
     end
   end
 
@@ -15,7 +15,7 @@ describe Advisories do
     before do
       @a = Advisories.new(
         dir: File.join(Dir.tmpdir, '.ruby-advisory-db'),
-        repo: 'git@github.com:chrismo/bundler-advise.git'
+        repo: 'https://github.com/chrismo/bundler-advise.git'
       )
     end
 
