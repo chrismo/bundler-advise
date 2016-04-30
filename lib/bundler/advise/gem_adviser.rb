@@ -11,8 +11,10 @@ module Bundler::Advise
     def scan_lockfile
       lockfile = nil
       Dir.chdir(@dir) do
-        STDOUT.puts Dir[File.join(@dir, '**', '*')]
-        lockfile = Bundler::LockfileParser.new(Bundler.read_file('Gemfile.lock'))
+        puts '*' * 80
+        puts Dir[File.join(@dir, '**', '*')].inspect
+        puts '*' * 80
+        lockfile = Bundler::LockfileParser.new(Bundler.read_file(File.join(@dir, 'Gemfile.lock')))
       end
       lockfile.specs.map do |spec|
         @advisories.gem_advisories_for(spec.name).select do |ad|
