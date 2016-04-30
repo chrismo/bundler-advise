@@ -2,6 +2,8 @@
 
 Scans a Gemfile looking for known vulnerable gems.
 
+[![Build Status](https://travis-ci.org/chrismo/bundler-advise.svg?branch=master)](https://travis-ci.org/chrismo/bundler-advise)
+
 ## Installation
 
 Add this line to your application's Gemfile:
