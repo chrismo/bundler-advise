@@ -2,18 +2,25 @@ require_relative '../spec_helper'
 
 describe GemAdviser do
   before do
+    Bundler.ui = Bundler::UI::Shell.new
     @bf = BundlerFixture.new
-    @bf.create_lockfile(gem_specs: [
-      @bf.create_spec('foo', '1.2.3', {'quux' => '~> 1.4'}),
-      @bf.create_spec('bar', '5.6'),
-      @bf.create_spec('quux', '1.4.3')
-    ])
+    @bf.create_lockfile(
+      gem_dependencies: [@bf.create_dependency('foo'),
+                         @bf.create_dependency('bar'),
+                         @bf.create_dependency('quux')],
+      source_specs: [
+        @bf.create_spec('foo', '1.2.3', {'quux' => '~> 1.4'}),
+        @bf.create_spec('bar', '5.6'),
+        @bf.create_spec('quux', '1.4.3')
+      ])
+    p @bf.lockfile_filename
+    p @bf.lockfile_contents
 
     @af = AdvisoriesFixture.new
   end
 
   def dump
-    puts File.read(File.join(@bf.dir, 'Gemfile.lock'))
+    puts @bf.lockfile_contents
   end
 
   after do
