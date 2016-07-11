@@ -2,7 +2,6 @@ require_relative '../spec_helper'
 
 describe GemAdviser do
   before do
-    Bundler.ui = Bundler::UI::Shell.new
     @bf = BundlerFixture.new
     @bf.create_lockfile(
       gem_dependencies: [@bf.create_dependency('foo'),
@@ -13,8 +12,6 @@ describe GemAdviser do
         @bf.create_spec('bar', '5.6'),
         @bf.create_spec('quux', '1.4.3')
       ])
-    p @bf.lockfile_filename
-    p @bf.lockfile_contents
 
     @af = AdvisoriesFixture.new
   end
