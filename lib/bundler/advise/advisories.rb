@@ -41,8 +41,13 @@ module Bundler::Advise
     end
 
     def pull
-      git = Git.open(@dir)
-      git.pull
+      # git gem uses --git-dir and --work-tree so this SHOULD work when OS working dir
+      # doesn't match - but that's not always true, so let's ensure this works on all
+      # CI boxen out there.
+      Dir.chdir(@dir) do
+        git = Git.open(@dir)
+        git.pull
+      end
     end
   end
 end
