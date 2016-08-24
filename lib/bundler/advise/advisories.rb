@@ -11,12 +11,16 @@ module Bundler::Advise
     end
 
     def update
-      File.exist?(@dir) ? pull : clone
+      dir_missing_or_empty ? clone : pull
     rescue ArgumentError => e
       # git gem is dorky in this case, putting the path into the backtrace.
       msg = "Unexpected problem with working dir for advisories: #{e.message} #{e.backtrace}.\n" +
         "Call clean_update! to remove #{@dir} and re-clone it."
       raise RuntimeError, msg
+    end
+
+    def dir_missing_or_empty
+      !File.exist?(@dir) || Dir.empty?(@dir)
     end
 
     def clean_update!
@@ -40,5 +44,14 @@ module Bundler::Advise
       git = Git.open(@dir)
       git.pull
     end
+  end
+end
+
+class Dir
+  def self.empty?(path)
+    Dir.glob("#{ path }/{*,.*}") do |e|
+      return false unless %w( . .. ).include?(File::basename(e))
+    end
+    return true
   end
 end

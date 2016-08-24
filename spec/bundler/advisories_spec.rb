@@ -37,8 +37,16 @@ describe Advisories do
       @a.update
     end
 
+    it 'should clone if dir exists but is empty' do
+      FileUtils.makedirs @a.dir
+      @a.update
+      File.exist?(File.join(@a.dir, '.git')).should be true
+      @a.update
+    end
+
     it 'should error handle messed up dir' do
       FileUtils.makedirs @a.dir
+      FileUtils.touch File.join(@a.dir, 'foo.bar')
       lambda { @a.update }.should raise_error(/problem with working dir.*#{Regexp.escape(@a.dir)}/)
     end
 
