@@ -1,4 +1,5 @@
 require_relative '../spec_helper'
+require 'tmpdir'
 
 describe GemAdviser do
   before do
@@ -72,5 +73,21 @@ describe GemAdviser do
     advisory = ga.scan_lockfile.first
     advisory.gem_spec.name.should == 'quux'
     advisory.gem_spec.version.to_s.should == '1.4.3'
+  end
+
+  it 'should obey the BUNDLE_GEMFILE env var' do
+    begin
+      Dir.chdir(Dir.tmpdir) do
+        Bundler.with_original_env do
+          ENV['BUNDLE_GEMFILE'] = File.join(@bf.dir, 'Gemfile')
+          @af.save_advisory(Advisory.new(gem: 'quux', patched_versions: '>= 1.4.5'))
+          ga = GemAdviser.new(advisories: Advisories.new(dir: @af.dir))
+          ga.scan_lockfile.map(&:gem).should == ['quux']
+        end
+      end
+    ensure
+      # TODO: necessary?
+      # ENV['BUNDLE_GEMFILE'] = nil
+    end
   end
 end
