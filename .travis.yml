@@ -30,3 +30,5 @@ matrix:
       env: BUNDLER_TEST_VERSION=1.14.6
     - rvm: 2.2.7
       env: BUNDLER_TEST_VERSION=1.14.6
+    - rvm: 2.3.4
+      env: BUNDLER_TEST_VERSION=1.15.0.pre.4
