@@ -1,6 +1,10 @@
 language: ruby
 
 before_install:
+  - gem update --system $RUBYGEMS_VERSION
+  - gem list bundler -d # see where the bundler versions are installed and which are listed as default
+  - # Move bundler gemspec from default to reg directory so it can be uninstalled. Is there an API way to do this?
+  - mv /home/travis/.rvm/rubies/ruby-$RVM_VER/lib/ruby/gems/$RUBY_MAJ_MIN.0/specifications/default/bundler-*.gemspec /home/travis/.rvm/rubies/ruby-$RVM_VER/lib/ruby/gems/$RUBY_MAJ_MIN.0/specifications/
   - for dir in $(echo $GEM_PATH | tr ':' ' '); do gem uninstall -i $dir bundler -a -x; done
   - gem install bundler -v $BUNDLER_TEST_VERSION
   - bundle --version
@@ -11,34 +15,50 @@ install:
 matrix:
   include:
     - rvm: 2.3.8
-      env: BUNDLER_TEST_VERSION=1.7.15
+      env:
+      - BUNDLER_TEST_VERSION=1.11.2
+      - RUBYGEMS_VERSION=2.5.2
     - rvm: 2.3.8
-      env: BUNDLER_TEST_VERSION=1.8.9
-    - rvm: 2.3.8
-      env: BUNDLER_TEST_VERSION=1.9.10
-    - rvm: 2.3.8
-      env: BUNDLER_TEST_VERSION=1.10.5
-    - rvm: 2.3.8
-      env: BUNDLER_TEST_VERSION=1.11.2
-    - rvm: 2.3.8
-      env: BUNDLER_TEST_VERSION=1.12.5
+      env:
+      - BUNDLER_TEST_VERSION=1.12.5
+      - RUBYGEMS_VERSION=2.5.2
     - rvm: 2.4.5
-      env: BUNDLER_TEST_VERSION=1.13.6
+      env:
+      - BUNDLER_TEST_VERSION=1.13.6
+      - RUBYGEMS_VERSION=2.6.14
     - rvm: 2.4.5
-      env: BUNDLER_TEST_VERSION=1.14.6
+      env:
+      - BUNDLER_TEST_VERSION=1.14.6
+      - RUBYGEMS_VERSION=2.6.14
     - rvm: 2.5.3
-      env: BUNDLER_TEST_VERSION=1.15.4
+      env:
+      - BUNDLER_TEST_VERSION=1.15.4
+      - RUBYGEMS_VERSION=2.7.6
     - rvm: 2.5.3
-      env: BUNDLER_TEST_VERSION=1.16.6
+      env:
+      - BUNDLER_TEST_VERSION=1.16.6
+      - RUBYGEMS_VERSION=2.7.6
     - rvm: 2.5.3
-      env: BUNDLER_TEST_VERSION=1.17.3
+      env:
+      - BUNDLER_TEST_VERSION=1.17.3
+      - RUBYGEMS_VERSION=2.7.6
     - rvm: 2.4.5
-      env: BUNDLER_TEST_VERSION=1.17.3
+      env:
+      - BUNDLER_TEST_VERSION=1.17.3
+      - RUBYGEMS_VERSION=2.6.14
     - rvm: 2.3.8
-      env: BUNDLER_TEST_VERSION=1.17.3
+      env:
+      - BUNDLER_TEST_VERSION=1.17.3
+      - RUBYGEMS_VERSION=2.5.2
     - rvm: 2.6.0
-      env: BUNDLER_TEST_VERSION=1.17.3
+      env:
+      - BUNDLER_TEST_VERSION=1.17.3
+      - RUBYGEMS_VERSION=3.0.1
     - rvm: 2.5.3
-      env: BUNDLER_TEST_VERSION=2.0.1
+      env:
+      - BUNDLER_TEST_VERSION=2.0.1
+      - RUBYGEMS_VERSION=2.7.6
     - rvm: 2.6.0
-      env: BUNDLER_TEST_VERSION=2.0.1
+      env:
+      - BUNDLER_TEST_VERSION=2.0.1
+      - RUBYGEMS_VERSION=3.0.1
