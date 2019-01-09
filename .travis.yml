@@ -10,25 +10,35 @@ install:
 
 matrix:
   include:
-    - rvm: 2.3.4
+    - rvm: 2.3.8
       env: BUNDLER_TEST_VERSION=1.7.15
-    - rvm: 2.3.4
+    - rvm: 2.3.8
       env: BUNDLER_TEST_VERSION=1.8.9
-    - rvm: 2.3.4
+    - rvm: 2.3.8
       env: BUNDLER_TEST_VERSION=1.9.10
-    - rvm: 2.3.4
+    - rvm: 2.3.8
       env: BUNDLER_TEST_VERSION=1.10.5
-    - rvm: 2.3.4
+    - rvm: 2.3.8
       env: BUNDLER_TEST_VERSION=1.11.2
-    - rvm: 2.3.4
+    - rvm: 2.3.8
       env: BUNDLER_TEST_VERSION=1.12.5
-    - rvm: 2.3.4
+    - rvm: 2.4.5
       env: BUNDLER_TEST_VERSION=1.13.6
-    - rvm: 2.3.4
+    - rvm: 2.4.5
       env: BUNDLER_TEST_VERSION=1.14.6
-    - rvm: 2.1.10
-      env: BUNDLER_TEST_VERSION=1.14.6
-    - rvm: 2.2.7
-      env: BUNDLER_TEST_VERSION=1.14.6
-    - rvm: 2.3.4
-      env: BUNDLER_TEST_VERSION=1.15.0.pre.4
+    - rvm: 2.5.3
+      env: BUNDLER_TEST_VERSION=1.15.4
+    - rvm: 2.5.3
+      env: BUNDLER_TEST_VERSION=1.16.6
+    - rvm: 2.5.3
+      env: BUNDLER_TEST_VERSION=1.17.3
+    - rvm: 2.4.5
+      env: BUNDLER_TEST_VERSION=1.17.3
+    - rvm: 2.3.8
+      env: BUNDLER_TEST_VERSION=1.17.3
+    - rvm: 2.6.0
+      env: BUNDLER_TEST_VERSION=1.17.3
+    - rvm: 2.5.3
+      env: BUNDLER_TEST_VERSION=2.0.1
+    - rvm: 2.6.0
+      env: BUNDLER_TEST_VERSION=2.0.1
