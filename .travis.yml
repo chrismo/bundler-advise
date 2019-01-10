@@ -54,9 +54,5 @@ matrix:
         - BUNDLER_TEST_VERSION=2.0.1
     - rvm: 2.6.0
       env:
-        - RUBYGEMS_VERSION=
-        - BUNDLER_TEST_VERSION=2.0.1
-    - rvm: 2.6.0
-      env:
-        - RUBYGEMS_VERSION=
-        - BUNDLER_TEST_VERSION=
+        - RUBYGEMS_VERSION=latest
+        - BUNDLER_TEST_VERSION=latest
