@@ -11,6 +11,22 @@ matrix:
     - rvm: 2.3.8
       env:
         - RUBYGEMS_VERSION=2.5.2
+        - BUNDLER_TEST_VERSION=1.7.15
+    - rvm: 2.3.8
+      env:
+        - RUBYGEMS_VERSION=2.5.2
+        - BUNDLER_TEST_VERSION=1.8.9
+    - rvm: 2.3.8
+      env:
+        - RUBYGEMS_VERSION=2.5.2
+        - BUNDLER_TEST_VERSION=1.9.10
+    - rvm: 2.3.8
+      env:
+        - RUBYGEMS_VERSION=2.5.2
+        - BUNDLER_TEST_VERSION=1.10.5
+    - rvm: 2.3.8
+      env:
+        - RUBYGEMS_VERSION=2.5.2
         - BUNDLER_TEST_VERSION=1.11.2
     - rvm: 2.3.8
       env:
@@ -32,26 +48,30 @@ matrix:
       env:
         - RUBYGEMS_VERSION=2.7.6
         - BUNDLER_TEST_VERSION=1.16.6
-    - rvm: 2.5.3
+    - rvm: 2.3.8
       env:
-        - RUBYGEMS_VERSION=2.7.6
+        - RUBYGEMS_VERSION=2.5.2
         - BUNDLER_TEST_VERSION=1.17.3
     - rvm: 2.4.5
       env:
         - RUBYGEMS_VERSION=2.6.14
         - BUNDLER_TEST_VERSION=1.17.3
-    - rvm: 2.3.8
+    - rvm: 2.5.3
       env:
-        - RUBYGEMS_VERSION=2.5.2
+        - RUBYGEMS_VERSION=2.7.6
         - BUNDLER_TEST_VERSION=1.17.3
     - rvm: 2.6.0
       env:
         - RUBYGEMS_VERSION=3.0.1
         - BUNDLER_TEST_VERSION=1.17.3
+    - rvm: 2.6.0
+      env:
+        - RUBYGEMS_VERSION=latest
+        - BUNDLER_TEST_VERSION=1.17.3
     - rvm: 2.5.3
       env:
-        - RUBYGEMS_VERSION=3.0.1
-        - BUNDLER_TEST_VERSION=2.0.1
+        - RUBYGEMS_VERSION=latest
+        - BUNDLER_TEST_VERSION=latest
     - rvm: 2.6.0
       env:
         - RUBYGEMS_VERSION=latest
