@@ -1,10 +1,15 @@
 require 'yaml'
+require 'date'
 
 module Bundler::Advise
   class Advisory
     def self.from_yml(yml_filename)
       id = File.basename(yml_filename, '.yml')
-      new(YAML.load(File.read(yml_filename)).tap { |h| h[:id] = id })
+      if Gem::Version.new(Psych::VERSION) < Gem::Version.new('4.0.0')
+        new(YAML.load(File.read(yml_filename)).tap { |h| h[:id] = id })
+      else
+        new(YAML.safe_load_file(yml_filename, permitted_classes: [Date]).tap { |h| h[:id] = id })
+      end
     end
 
     def self.fields
